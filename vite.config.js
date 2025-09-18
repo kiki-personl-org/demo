@@ -6,6 +6,6 @@ export default defineConfig({
   plugins: [react()],
   base: '/demo/',
   build: {
-    outDir: 'docs',
+    outDir: 'dist',
   },
 })
