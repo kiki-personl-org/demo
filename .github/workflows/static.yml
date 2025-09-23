@@ -31,13 +31,31 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: 'pnpm'
+      - name: check if node and pnpm are installed
+        run: |
+          if ! command -v node > /dev/null; then
+            echo "Node is not installed"
+            exit 1
+          fi
+          if ! command -v pnpm > /dev/null; then
+            echo "pnpm is not installed"
+            exit 1
+          fi
+          echo "Node and pnpm are installed"
       - name: Setup Pages
         uses: actions/configure-pages@v5
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
           # Upload entire repository
-          path: '.'
+          path: './dist'
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
